@@ -1,3 +1,5 @@
+pub mod audio;
+
 pub trait Buffer {
     fn get_buffer(&self) -> &[u8];
 }
@@ -33,7 +35,10 @@ impl FileWriter {
 }
 
 impl Writer for FileWriter {
-    fn write<T>(&self, renderer: T) -> Result<()> where T: OutputRenderer + 'static {
+    fn write<T>(&self, renderer: T) -> Result<()>
+    where
+        T: OutputRenderer + 'static,
+    {
         let mut p = self.open_file()?;
 
         let header = &renderer.get_header();
@@ -50,7 +55,6 @@ impl Writer for FileWriter {
         Ok(())
     }
 }
-
 
 use std::io;
 
